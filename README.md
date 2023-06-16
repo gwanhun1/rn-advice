@@ -4,8 +4,6 @@
 
 ## 리액트 네이티브 연습(advice)
 
-[Create React App](https://github.com/facebook/create-react-app) 기반 프로젝트
-
 ```
 $ npm install - 프로젝트 설치
 
