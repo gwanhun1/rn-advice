@@ -9,7 +9,7 @@ const Nav = () => {
       <View style={styles.btnBox}></View>
       <Image source={require("../assets/logo.png")} style={styles.logoBox} />
       <View style={styles.btnBox}>
-        <Feather name="menu" size={24} color="black" />
+        <Feather name="menu" size={24} color="white" />
       </View>
     </View>
   );

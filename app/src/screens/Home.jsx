@@ -16,9 +16,7 @@ function Home() {
   const [update, setUpdate] = useState(10);
   const [alert, setAlert] = useState(false);
 
-  const reset = () => {
-    setSelect(-1);
-  };
+  const reset = () => setSelect(-1);
 
   const openModal = () => {
     if (select !== -1) {
@@ -28,32 +26,22 @@ function Home() {
     }
   };
 
-  const selectFilter = () => {
-    setModalVisible(false);
-  };
+  const selectFilter = () => setModalVisible(false);
 
-  const handleSelectMessage = (id) => {
-    setSelect(id);
-  };
+  const handleSelectMessage = (id) => setSelect(id);
 
   const handleUpdate = () => {
     setUpdate((prevState) => prevState + 10);
     setSelect(-1);
   };
 
-  const handleAlert = () => {
-    setAlert(false);
-  };
+  const handleAlert = () => setAlert(false);
 
   useEffect(() => {
     axios
       .get(`https://api.quotable.io/quotes?limit=${update}`)
-      .then((res) => {
-        setData(res.data.results);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+      .then((res) => setData(res.data.results))
+      .catch((error) => console.error("Error fetching data:", error));
   }, [update]);
 
   useEffect(() => {
@@ -67,7 +55,7 @@ function Home() {
 
   const handleShare = async () => {
     const shareOptions = {
-      message: share.content + "-" + share.author,
+      message: `${share.content}-${share.author}`,
     };
 
     try {
@@ -78,7 +66,7 @@ function Home() {
   };
 
   const handleCopyText = async () => {
-    const text = share.content + "-" + share.author;
+    const text = `${share.content}-${share.author}`;
 
     try {
       await Clipboard.setString(text);
@@ -91,9 +79,9 @@ function Home() {
   return (
     <View style={styles.container}>
       <View style={styles.btnBox}>
-        <Button title={"새로고침"} color={theme.green} onPress={handleUpdate} />
-        <Button title={"공유하기"} color={theme.blue} onPress={openModal} />
-        <Button title={"초기화"} color={theme.red} onPress={reset} />
+        <Button title="새로고침" color={theme.green} onPress={handleUpdate} />
+        <Button title="공유하기" color={theme.blue} onPress={openModal} />
+        <Button title="초기화" color={theme.red} onPress={reset} />
       </View>
       <CustomModal modalVisible={modalVisible}>
         <View style={styles.modalContainer}>
@@ -101,18 +89,18 @@ function Home() {
             <Text style={styles.modalTitle}>전달하기</Text>
 
             <View style={styles.shareBox}>
-              <Text>{share ? share.content : ""}</Text>
-              <Text>- {share ? share.author : ""}</Text>
+              <Text>{share?.content}</Text>
+              <Text>- {share?.author}</Text>
             </View>
 
             <View style={styles.modalBtnBox}>
-              <Button title={"공유"} color={theme.blue} onPress={handleShare} />
+              <Button title="공유" color={theme.blue} onPress={handleShare} />
               <Button
-                title={"복사"}
+                title="복사"
                 color={theme.green}
                 onPress={handleCopyText}
               />
-              <Button title={"닫기"} color={theme.red} onPress={selectFilter} />
+              <Button title="닫기" color={theme.red} onPress={selectFilter} />
             </View>
             <Text style={styles.des}>메세지 박스 안 내용만 복사됩니다.</Text>
           </View>
@@ -124,7 +112,7 @@ function Home() {
             <Text style={styles.alert}>선택을 먼저 해주세요.</Text>
 
             <View style={styles.modalBtnBox}>
-              <Button title={"확인"} color={theme.blue} onPress={handleAlert} />
+              <Button title="확인" color={theme.blue} onPress={handleAlert} />
             </View>
           </View>
         </View>
@@ -132,18 +120,16 @@ function Home() {
       <Card>
         <FlatList
           data={data}
-          renderItem={({ item, index }) => {
-            return (
-              <Message
-                key={index}
-                id={index}
-                select={select}
-                title={item.author}
-                message={item.content}
-                onPress={() => handleSelectMessage(index)}
-              />
-            );
-          }}
+          renderItem={({ item, index }) => (
+            <Message
+              key={index}
+              id={index}
+              select={select}
+              title={item.author}
+              message={item.content}
+              onPress={() => handleSelectMessage(index)}
+            />
+          )}
         />
       </Card>
     </View>

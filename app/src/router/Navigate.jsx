@@ -7,22 +7,17 @@ import Nav from "../components/Nav";
 const Stack = createStackNavigator();
 
 function Navigate() {
-  const windowWidth = Dimensions.get("window").width; // 화면의 넓이 가져오기
+  const windowWidth = Dimensions.get("window").width; // Get the window's width
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: {
+        headerTitle: () => <Nav />,
+        headerTitleContainerStyle: {
           width: windowWidth,
         },
       }}
     >
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerTitle: () => <Nav />,
-        }}
-      />
+      <Stack.Screen name="Home" component={Home} />
     </Stack.Navigator>
   );
 }
