@@ -12,8 +12,6 @@ $ npm install - 프로젝트 설치
 $ npm run start - 프로젝트 실행
 ```
 
-[http://localhost:3000](http://localhost:3000) -> 실행 주소
-
 <br /><br />
 
 ## node version
